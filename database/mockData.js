@@ -81,15 +81,6 @@ function generateListing() {
   };
   return listing;
 }
-// function generateListings() {
-//   const listings = [];
-//   for (let id = 1; id <= 100; id += 1) {
-//     const listing = generateListing();
-//     listing.id = id;
-//     listings.push(listing);
-//   }
-//   return listings;
-// }
 
 // const dbData = generateListings();
 // console.log(dbData);
@@ -109,9 +100,18 @@ const createCsvRow = () => {
   return `${resultsArr.join(',')}\n`;
 };
 
-const writeToFile = (writer, callback) => {
+const createCsvHeader = () => {
+  const listing = generateListing();
+  const keys = Object.keys(listing);
+  const resultsArr = [];
+  // loop through keys and push the values into an array which will be joined and comma separated
+  keys.forEach(key => resultsArr.push(key));
+  return `${resultsArr.join(',')}\n`;
+};
+
+const writeToFileCsv = (writer, callback) => {
   const start = Date.now();
-  let i = 100;
+  let i = 10000001;
   function write() {
     let ok = true;
     while (i > 0 && ok) {
@@ -119,22 +119,20 @@ const writeToFile = (writer, callback) => {
       if (i === 0) {
         // Last time!
         writer.end(createCsvRow(), callback(start));
+      } else if (i === 10000000) {
+        ok = writer.write(createCsvHeader());
       } else {
-        // See if we should continue, or wait.
-        // Don't pass the callback, because we're not done yet.
         ok = writer.write(createCsvRow());
       }
     }
     if (i > 0) {
-      // Had to stop early!
-      // Write some more once it drains.
       writer.once('drain', write);
     }
   }
   write();
 };
 
-writeToFile(fs.createWriteStream('./database/listings.csv'), (time) => {
+writeToFileCsv(fs.createWriteStream('./database/listings.csv'), (time) => {
   const seconds = (Date.now() - time) / 1000;
   const min = Math.floor(seconds / 60);
   const sec = Math.round(seconds % 60);
