@@ -21,6 +21,12 @@ $ npm run seed
 
 # compile/transpile files with webpack
 $ npm run react-dev
+
+# create database in Postgres
+$ psql postgres -c "CREATE DATABASE listings_db";
+
+# initialize psql env and create table
+$ psql listings_db < ./database/createTable.sql;
 ```
 
 ## <a id="requirements">Requirements</a>

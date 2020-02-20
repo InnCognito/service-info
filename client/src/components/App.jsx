@@ -12,7 +12,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      listings: [],
+      listings: {},
       displaySpaceText: false,
     };
     this.displaySpaceInfo = this.displaySpaceInfo.bind(this);
@@ -20,8 +20,7 @@ class App extends React.Component {
 
   componentDidMount() {
     $.get({
-      url: '/listings/3',
-      // url: `/listings/${window.location.href.match(/id\s*=\s*(.*)/)[1]}`,
+      url: `/listings/${window.location.href.match(/id\s*=\s*(.*)/)[1]}`,
       success: (data) => {
         this.setState({ listings: data });
       },
@@ -67,11 +66,25 @@ class App extends React.Component {
         <path d="m23.96 14.81-2.96-7.41v-5.02a1.39 1.39 0 0 0 -1.39-1.38h-15.22c-.77 0-1.39.62-1.39 1.38v5.02l-2.96 7.41-.04.19v5.61c0 .64.43 1.17 1.01 1.33 0 .02-.01.04-.01.06v1.5a.5.5 0 0 0 1 0v-1.5h20v1.5a.5.5 0 0 0 1 0v-1.5c0-.02-.01-.04-.01-.06a1.39 1.39 0 0 0 1.01-1.33v-5.61zm-19.96-12.43c0-.21.17-.38.39-.38h15.22a.39.39 0 0 1 .39.39v4.61h-1v-1.61c0-.77-.62-1.39-1.39-1.39h-3.21c-.78 0-1.4.62-1.4 1.39v1.61h-2v-1.61c0-.77-.62-1.39-1.39-1.39h-3.22c-.77 0-1.39.62-1.39 1.39v1.61h-1zm14 3.01v3.21a.39.39 0 0 1 -.39.39h-3.21a.39.39 0 0 1 -.4-.38v-3.22a.39.39 0 0 1 .39-.39h3.21a.39.39 0 0 1 .39.39zm-8 0v3.21a.39.39 0 0 1 -.39.4h-3.22a.39.39 0 0 1 -.39-.39v-3.22a.39.39 0 0 1 .39-.39h3.21a.39.39 0 0 1 .39.39zm-6.16 2.61h1.16v.61c0 .77.62 1.39 1.39 1.39h3.21c.78 0 1.4-.62 1.4-1.39v-.61h2v .61c0 .78.62 1.39 1.39 1.39h3.21c.78 0 1.4-.62 1.4-1.39v-.61h1.16l2.8 7h-21.92zm19.16 12.61c0 .21-.18.39-.39.39h-21.22a.39.39 0 0 1 -.39-.39v-4.61h22z" fillRule="evenodd" />
       </svg>
     );
-
+    const { listings } = this.state;
+    console.log(listings);
     const {
-      title, city, hostImage, roomInfo, numberOfGuests, numberOfBedrooms, numberOfBaths, numberOfBeds, isSuperhost, isGreatCheckIn, isSparklingClean, isGreatLocation, isSelfCheckIn, description,
-    } = this.state.listings;
-
+      title,
+      city,
+      hostimage,
+      roominfo,
+      numberofguests,
+      numberofbedrooms,
+      numberofbaths,
+      numberofbeds,
+      issuperhost,
+      isgreatcheckin,
+      issparklingclean,
+      isgreatlocation,
+      isselfcheckin,
+      description,
+    } = listings;
+    const { displaySpaceText } = this.state;
     return (
       <div className={css.main}>
         <div className={css['title-summary-div']}>
@@ -84,7 +97,7 @@ class App extends React.Component {
             </div>
           </div>
           <div className={css['host-image']}>
-            <img className={css['host-image']} src={hostImage} />
+            <img className={css['host-image']} src={hostimage} alt="host avatar" />
           </div>
         </div>
         <div className={css.highlights}>
@@ -92,38 +105,40 @@ class App extends React.Component {
             <div className={css.icon}><i className="fas fa-home fa-xs" /></div>
             <div className={css['room-description']}>
               <div className={css['room-title']}>
-                {roomInfo}
+                {roominfo}
               </div>
               <div className={css['guest-info-block']}>
                 <div className={css['guest-info']}>
-                  {numberOfGuests}
+                  {numberofguests}
                   {' '}
 guests
                 </div>
                 <div className={css['guest-info']}>
-                  {numberOfBedrooms}
+                  {numberofbedrooms}
                   {' '}
-                  {numberOfBedrooms === 1 ? 'bedroom' : 'bedrooms'}
+                  {numberofbedrooms === 1 ? 'bedroom' : 'bedrooms'}
                 </div>
                 <div className={css['guest-info']}>
-                  {numberOfBeds}
+                  {numberofbeds}
                   {' '}
-                  {numberOfBeds === 1 ? 'bed' : 'beds'}
+                  {numberofbeds === 1 ? 'bed' : 'beds'}
                 </div>
                 <div className={css['guest-info']}>
-                  {numberOfBaths}
+                  {numberofbaths}
                   {' '}
-                  {numberOfBaths === 1 ? 'bath' : 'baths'}
+                  {numberofbaths === 1 ? 'bath' : 'baths'}
                 </div>
               </div>
             </div>
           </div>
 
-          {isSuperhost && <Superhost />}
-          {isGreatCheckIn && <GreatCheckin />}
-          {isSparklingClean && <SparklingClean />}
-          {isGreatLocation && <GreatLocation />}
-          {isSelfCheckIn && <SelfCheckin />}
+          {issuperhost && <Superhost />}
+          {isgreatcheckin && <GreatCheckin />}
+          {issparklingclean && <SparklingClean />}
+          {isgreatlocation && <GreatLocation />}
+          {
+          isselfcheckin
+          && <SelfCheckin />}
         </div>
         <hr />
         <div className={css['space-intro']}>
@@ -133,13 +148,13 @@ New renovated Garden Suite with separated entrance,
           </p>
         </div>
         {/* {this.state.displaySpaceText ? ( */}
-        <div className={this.state.displaySpaceText ? `${css.space} ${css['space-visible']}` : css.space}>
+        <div className={displaySpaceText ? `${css.space} ${css['space-visible']}` : css.space}>
           <p><b>The Space</b></p>
           <p>{description}</p>
         </div>
         {/* ): null} */}
         <div className={css['space-onclick']} onClick={this.displaySpaceInfo}>
-          {this.state.displaySpaceText ? 'Hide' : 'Read more about the space'}
+          {displaySpaceText ? 'Hide' : 'Read more about the space'}
           <div className={css['arrow-svg']}>
             {svgIcon}
           </div>
@@ -155,9 +170,9 @@ New renovated Garden Suite with separated entrance,
           <div className={css['sleeping-border']}>
             <div className={css['svg-bed']}>{svgBed}</div>
             <div className={css['bedroom-num-sleeping']}>
-              {numberOfBedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
+              {numberofbedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
               {' '}
-              {numberOfBedrooms}
+              {numberofbedrooms}
             </div>
           </div>
           <hr />

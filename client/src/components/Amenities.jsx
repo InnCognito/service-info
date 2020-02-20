@@ -44,6 +44,7 @@ class Amenities extends React.Component {
   }
 
   render() {
+    const { showModal } = this.state;
     const svgKitchen = (
       <svg
         viewBox="0 0 24 24"
@@ -121,7 +122,6 @@ class Amenities extends React.Component {
         <path d="m23.25 24c-.19 0-.38-.07-.53-.22l-10.72-10.72-10.72 10.72c-.29.29-.77.29-1.06 0s-.29-.77 0-1.06l10.72-10.72-10.72-10.72c-.29-.29-.29-.77 0-1.06s.77-.29 1.06 0l10.72 10.72 10.72-10.72c.29-.29.77-.29 1.06 0s .29.77 0 1.06l-10.72 10.72 10.72 10.72c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22" fillRule="evenodd" />
       </svg>
     );
-
     return (
       <section className={css['amenities-main']}>
         <br />
@@ -154,10 +154,10 @@ class Amenities extends React.Component {
         <hr />
         <Modal
           style={customStyles}
-          isOpen={this.state.showModal}
+          isOpen={showModal}
           contentLabel="Amenities"
         >
-          <button className={css['close-button']} onClick={this.handleCloseModal}>{svgButton}</button>
+          <button type="submit" className={css['close-button']} onClick={this.handleCloseModal}>{svgButton}</button>
           <div className={css['all-amenities-main']}>
             <div className={css['amenities-title']}>Amenities</div>
             <section>

@@ -1,8 +1,5 @@
 const faker = require('faker');
 const fs = require('fs');
-const { Readable } = require('stream');
-const db = require('./index.js');
-
 
 const titleRandom = ['Perfectly located', 'Light & spacious garden flat', 'Private Modern Guesthouse', 'Ocean View Hideaway', 'Perfect Haven by Golden Gate', 'Private Backyard Cottage', 'Sunny Room Heart of', 'Luxury Gold Coast', 'Central Surfers Studio OceanView', 'Broken Head Bodhi Treehouse', 'Mountain tiny house', 'Blue Mountains Cottage', 'The Copa Cabana', 'The Tree House', 'Stroll Around Victoria Park', 'Entire Home with Opera House views', 'Luxury Apartment in the heart of', 'Stylish inner-city home', 'Little Paradise', 'Stunning River View'];
 
@@ -46,6 +43,7 @@ function generateListing() {
   const bedrooms = numberOfBedrooms();
   const city = faker.address.city();
   const listing = {
+    // listing_id: i,
     city,
     title: `${titleRandomArray} ${city}`,
     hostImage: `https://s3-us-west-1.amazonaws.com/airbnb-host-photos/host${hostImage}.jpg`,
@@ -82,17 +80,8 @@ function generateListing() {
   return listing;
 }
 
-// const dbData = generateListings();
-// console.log(dbData);
-// db.insertMany(dbData, (error) => {
-//   if (error) {
-//     console.log('Error Seeding..');
-//   } else {
-//     console.log('Seeding Success!');
-//   }
-// });
-const createCsvRow = () => {
-  const listing = generateListing();
+const createCsvRow = (idx) => {
+  const listing = generateListing(idx);
   const keys = Object.keys(listing);
   const resultsArr = [];
   // loop through keys and push the values into an array which will be joined and comma separated
@@ -100,39 +89,40 @@ const createCsvRow = () => {
   return `${resultsArr.join(',')}\n`;
 };
 
-const createCsvHeader = () => {
-  const listing = generateListing();
-  const keys = Object.keys(listing);
-  const resultsArr = [];
-  // loop through keys and push the values into an array which will be joined and comma separated
-  keys.forEach(key => resultsArr.push(key));
-  return `${resultsArr.join(',')}\n`;
-};
+// const createCsvHeader = () => {
+//   const listing = generateListing();
+//   const keys = Object.keys(listing);
+//   const resultsArr = [];
+//   // loop through keys and push the values into an array which will be joined and comma separated
+//   keys.forEach(key => resultsArr.push(key));
+//   return `${resultsArr.join(',')}\n`;
+// };
 
 const writeToFileCsv = (writer, callback) => {
   const start = Date.now();
-  let i = 10000001;
+  let i = -1;
   function write() {
     let ok = true;
-    while (i > 0 && ok) {
-      i -= 1;
-      if (i === 0) {
+    while (i < 9999999 && ok) {
+      i += 1;
+      if (i === 9999999) {
         // Last time!
-        writer.end(createCsvRow(), callback(start));
-      } else if (i === 10000000) {
-        ok = writer.write(createCsvHeader());
+        writer.write(createCsvRow(), callback(start));
       } else {
         ok = writer.write(createCsvRow());
       }
+      // else if (i === -1) {
+      //   ok = writer.write(createCsvHeader());
+      // }
     }
-    if (i > 0) {
+    if (i < 9999999) {
       writer.once('drain', write);
     }
   }
   write();
 };
 
-writeToFileCsv(fs.createWriteStream('./database/listings.csv'), (time) => {
+writeToFileCsv(fs.createWriteStream('./database/listingsWithoutIds.csv'), (time) => {
   const seconds = (Date.now() - time) / 1000;
   const min = Math.floor(seconds / 60);
   const sec = Math.round(seconds % 60);
