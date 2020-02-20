@@ -1,2 +1,3 @@
 node_modules
 /database/listingsWithoutIds.csv
+/client/dist/bundle.js;
