@@ -7,7 +7,8 @@
     "react-dev": "webpack -d --watch",
     "start": "nodemon server/index.js",
     "test": "jest",
-    "seed": "node database/mockData.js"
+    "generateData": "node database/mockData.js",
+    "seed": "node database/seed.js"
   },
   "repository": {
     "type": "git",
@@ -45,12 +46,13 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "couchimport": "^1.4.1",
     "express": "^4.16.4",
     "faker": "^4.1.0",
     "install": "^0.12.2",
     "jquery": "^3.4.1",
-    "mongoose": "^5.5.9",
     "nodemon": "^1.19.0",
+    "pg": "^7.18.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-modal": "^3.8.1",
