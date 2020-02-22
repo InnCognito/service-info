@@ -1,6 +1,6 @@
 node_modules
 /database/listingsWithoutIds.csv
-/client/dist/bundle.js;
+/client/dist/bundle.js
 newrelic_agent.log
 newrelic.js
 script.js
