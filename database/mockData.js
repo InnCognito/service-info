@@ -58,24 +58,6 @@ function generateListing() {
     isGreatCheckIn: booleanGenerator(),
     isSelfCheckIn: booleanGenerator(),
     description: faker.lorem.paragraph(4),
-    // amenities: {
-    //   basic: {
-    //     hasWiFi: true,
-    //     hasEssentials: true,
-    //     hasCable: true,
-    //     hasLaptopSpace: true,
-    //     hasHeating: true,
-    //   },
-    //   dining: {
-    //     hasKitchen: true,
-    //   },
-    //   bedAndBath: {
-    //     hasPillowsBlankets: true,
-    //   },
-    // },
-    // sleepingArrangements: {
-    //   bedroom: bedrooms,
-    // },
   };
   return listing;
 }
