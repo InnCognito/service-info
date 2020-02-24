@@ -16,8 +16,8 @@ $ git clone https://github.com/hacker-home/Airbnb-info.git
 # install dependencies
 $ npm install
 
-# seed database
-$ npm run seed
+# generate data
+$ npm run generateData
 
 # compile/transpile files with webpack
 $ npm run react-dev
@@ -26,7 +26,7 @@ $ npm run react-dev
 $ psql postgres -c "CREATE DATABASE listings_db";
 
 # initialize psql env and create table
-$ psql listings_db < ./database/createTable.sql;
+$ psql listings_db < ./database/createTableAndSeed.sql;
 ```
 
 ## <a id="requirements">Requirements</a>
