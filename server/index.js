@@ -17,6 +17,10 @@ app.use(express.static(path.join(__dirname, '/../client/dist')));
 
 app.get('/api/listings/:id', db.getListing);
 
+app.get('/loaderio-07a24b82531744036943364fcc7cb4a5', (req, res) => {
+  res.send('loaderio-07a24b82531744036943364fcc7cb4a5');
+});
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 module.exports = app;
