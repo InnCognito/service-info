@@ -1,7 +1,6 @@
 const { Pool } = require('pg');
-const path = require('path');
 
-const connectionString = 'postgres://localhost:5432/listings_db';
+const connectionString = 'postgres://44.231.247.5:5432/listings_db';
 
 const pool = new Pool(
   {
@@ -23,39 +22,12 @@ const getListing = (req, res) => {
       console.log('ERROR; LISTING NOT FOUND!');
       res.sendStatus(404);
     } else {
-      console.log(`RESULT FOUND FOR LISTING ID ${id}! RETURNING RESULT...`);
+      // console.log(`RESULT FOUND FOR LISTING ID ${id}! RETURNING RESULT...`);
       res.status(200).send(results.rows[0]);
-    }
-  });
-};
-
-const seedTable = () => {
-  console.log('INITIALIZING SEED...');
-  pool.query(`COPY listings (
-    city,
-    title,
-    hostImage,
-    roomInfo,
-    numberOfGuests,
-    numberOfBedrooms,
-    numberOfBeds,
-    numberOfBaths,
-    isSuperhost,
-    isGreatLocation,
-    isSparklingClean,
-    isGreatCheckIn,
-    isSelfCheckIn,
-    description
-    ) FROM '${path.join(__dirname, './listingsWithoutIds.csv')}' DELIMITER ',' CSV`, (err) => {
-    if (err) {
-      console.log(`ERROR SEEDING DATABASE: ${err}`);
-    } else {
-      console.log('SUCCESSFULLY SEEDED DATABASE');
     }
   });
 };
 
 module.exports = {
   getListing,
-  seedTable,
 };
