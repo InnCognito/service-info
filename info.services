@@ -1,0 +1,10 @@
+[Unit]
+Description=Info service
+
+[Service]
+User=ubuntu
+Type=simple
+ExecStart=/bin/bash /usr/bin/start
+
+[Install]
+WantedBy=multi-user.target

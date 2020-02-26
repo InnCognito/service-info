@@ -1,10 +1,12 @@
 const { Pool } = require('pg');
 
-const connectionString = 'postgres://44.231.247.5:5432/listings_db';
-
 const pool = new Pool(
   {
-    connectionString,
+    host: '44.231.247.5',
+    database: 'listings_db',
+    user: 'postgres',
+    password: 'schoolhouserock',
+    port: 5432,
   },
 );
 
