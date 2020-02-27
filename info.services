@@ -4,7 +4,8 @@ Description=Info service
 [Service]
 User=ubuntu
 Type=simple
-ExecStart=/bin/bash /usr/bin/start
+WorkingDirectory=/home/ubuntu/service-info/server/
+ExecStart=/usr/bin/node index.js
 
 [Install]
 WantedBy=multi-user.target
