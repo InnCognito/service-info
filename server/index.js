@@ -21,6 +21,6 @@ app.get('/loaderio-07a24b82531744036943364fcc7cb4a5', (req, res) => {
   res.send('loaderio-07a24b82531744036943364fcc7cb4a5');
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`Listings app listening on port ${port}!`));
 
 module.exports = app;
