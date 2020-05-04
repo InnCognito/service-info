@@ -34,9 +34,3 @@ $ psql listings_db < ./database/createTableAndSeed.sql;
 * [Node.js](https://nodejs.org/en/download/)
 * [Git](https://git-scm.com/)
 
-## <a id="related_projects">Related Projects</a>
-* https://github.com/hacker-home/Airbnb-photos
-* https://github.com/hacker-home/Airbnb-booking
-* https://github.com/hacker-home/Airbnb-reviews
-* https://github.com/hacker-home/Airbnb-more-homes
-
